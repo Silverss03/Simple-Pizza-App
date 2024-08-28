@@ -1,5 +1,8 @@
 import {View, Text, FlatList, Image, SafeAreaView, TouchableOpacity, Dimensions} from 'react-native'
+import axios from 'axios' 
+import React, { useEffect, useState } from 'react';
 const screenWidth = Dimensions.get('window').width ;
+
 const items = [
     {
         id : 1,
