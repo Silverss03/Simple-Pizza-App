@@ -40,7 +40,8 @@ const SeaPizza = () =>{
         <SafeAreaView >
             <FlatList data = {items}
                     keyExtractor = {(item) => item.id}
-                    renderItem = {renderItem}>
+                    renderItem = {renderItem}
+                    initialNumToRender={5}>
                     
             </FlatList>
         </SafeAreaView>
