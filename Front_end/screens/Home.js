@@ -22,12 +22,6 @@ const Home_items = [
 		name : 'Combo 3: "SO DEEP" Vibe 3',
 
 	},
-	{
-		id : 4 ,
-		img : require('../assets/Home_page_img/4.jpg'),
-		name : 'Pizza Sò Điệp To Vĩbe',
-
-	},
 ]
 
 const renderItem = ({item}) => {
@@ -36,8 +30,8 @@ const renderItem = ({item}) => {
 			<View style = {{ height : 210, width : 165, margin : 16, backgroundColor : 'white', borderRadius : 7}}>
 				<Image  
 						source = {item.img} 
-						style = {{height : 160, width : 165, marginBottom : 8, borderRadius : 7}}/>
-				<Text style = {{color : "#121212", textAlign : 'center'}}>{item.name}</Text>
+						style = {{height : 160, width : 165, marginBottom : 8, borderRadius : 7 }}/>
+				<Text style = {{color : "#121212", textAlign : 'center', fontSize : 16}}>{item.name}</Text>
 			</View>
 		</TouchableOpacity>
 	)
@@ -59,13 +53,13 @@ const Home = () => {
 					</Text>
 				</View>
 				<View style = {[styles.orderContainer, styles.Button ]}>
-					<Text style = {{marginTop : 20, fontSize : 11, color : "gray"}}>The Pizza Company sẽ giao sản phẩm đến địa chỉ của bạn</Text>
+					<Text style = {{marginTop : 20, fontSize : 15, color : "gray"}}>The Pizza Company sẽ giao sản phẩm đến địa chỉ của bạn</Text>
 					<TouchableOpacity style = {styles.orderBtn}>
 						<Text style = {{color : "white"}}>ĐẶT HÀNG NGAY</Text>
 					</TouchableOpacity>
 				</View>
 				<TouchableOpacity style = {[styles.orderAgainBtn, styles.Button]}>
-						<Text style = {{color : "#3c8d61" }}>
+						<Text style = {{color : "#3c8d61", fontSize : 16 }}>
 							Đặt lại đơn hàng gần nhất
 						</Text>
 				</TouchableOpacity>
@@ -113,7 +107,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	textStyle:{
-		fontSize: 16, 
+		fontSize: 20, 
 		fontWeight: 'bold', 
 		color: '#3c8d61', 
 		textAlign: 'center', 
@@ -144,7 +138,7 @@ const styles = StyleSheet.create({
 		marginHorizontal : screenWidth * 0.05,
 		alignItems : 'center',
 	},
-	orderBtn:{marginTop : 50, 
+	orderBtn:{marginTop : 40, 
 		marginBottom : 20,
 		justifyContent : 'center', 
 		backgroundColor : 'green', 
