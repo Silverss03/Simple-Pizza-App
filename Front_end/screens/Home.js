@@ -138,7 +138,8 @@ const styles = StyleSheet.create({
 		marginHorizontal : screenWidth * 0.05,
 		alignItems : 'center',
 	},
-	orderBtn:{marginTop : 40, 
+	orderBtn:{
+		marginTop : 40, 
 		marginBottom : 20,
 		justifyContent : 'center', 
 		backgroundColor : 'green', 

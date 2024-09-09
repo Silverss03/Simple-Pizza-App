@@ -1,5 +1,7 @@
 import {SafeAreaView, View, Text, StyleSheet, TextInput, Image, TouchableOpacity} from 'react-native';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
+import { Search } from 'lucide-react-native';
+
 const Cart = () => {
     return (
         <SafeAreaView style = {[styles.container, SafeAreaViewAndroid.AndroidSafeArea]}>
@@ -13,7 +15,7 @@ const Cart = () => {
                 <View style = {{flexDirection : 'row'}}>
                     <TextInput style = {styles.textInput} placeholder = "Nhập số điện thoại"></TextInput>
                     <TouchableOpacity style = {styles.touchable}>
-                        <Image style = {styles.icon} resizeMode= 'cover' source = {require('../assets/icons/icons-find.png')}></Image>
+                        <Search size = {30} color={"white"}/>
                     </TouchableOpacity>
                 </View>
             </View>

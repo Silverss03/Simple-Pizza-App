@@ -1,6 +1,10 @@
 import {View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
-const Account = () => {
+import {PhoneCall} from 'lucide-react-native'
+import { Globe } from 'lucide-react-native';
+import { Smartphone } from 'lucide-react-native';
+
+const Account = ({route, navigation}) => {
     return (
         <SafeAreaView style = {SafeAreaViewAndroid.AndroidSafeArea}>
             <View style = {styles.container}>
@@ -16,10 +20,10 @@ const Account = () => {
                             </View>
                         </ImageBackground>
                         <View style = {styles.buttonContainer}> 
-                            <TouchableOpacity style={styles.button} onPress={() => {}}>
+                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
                                 <Text style={styles.buttonText}>Đăng Nhập</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => {}}>
+                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
                                 <Text style={styles.buttonText}>Đăng Ký</Text>
                             </TouchableOpacity>
                         </View>
@@ -45,9 +49,9 @@ const Account = () => {
                                 Miễn phí giao hàng
                             </Text>
                             <View style = {{flexDirection:'row', marginTop : 10}}>
-                                <Image source={require('../assets/icons/phone-call.png')} style ={{width:30,height:30, marginHorizontal :  10}}></Image>
-                                <Image source={require('../assets/icons/globe.png')} style ={{width:30,height:30, marginHorizontal :  10}}></Image>
-                                <Image source={require('../assets/icons/smartphone.png')} style ={{width:30,height:30, marginHorizontal :  10}}></Image>
+                                <PhoneCall size = {27} color= "black" style = {{marginHorizontal : 5}}/>
+                                <Globe size = {27} color= "black" style = {{marginHorizontal : 5}}/>
+                                <Smartphone size = {27} color= "black" style = {{marginHorizontal : 5}}/>
                             </View>
                         </View>
                         <View style = {styles.footerInfo}>
