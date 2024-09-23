@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Dimensions, TouchableOpacity, Image, FlatList } from 'react-native';
+import React from 'react';
 import Carousel from '../components/Carousel';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
-const screenWidth = Dimensions.get('window').width ;
+import { useSelector } from 'react-redux';
 
+const screenWidth = Dimensions.get('window').width ;
 // Home page images
 const Home_items = [
 	{
@@ -32,12 +34,14 @@ const renderItem = ({item}) => {
 						source = {item.img} 
 						style = {{height : 160, width : 165, marginBottom : 8, borderRadius : 7 }}/>
 				<Text style = {{color : "#121212", textAlign : 'center', fontSize : 16}}>{item.name}</Text>
-			</View>
+			</View>	
 		</TouchableOpacity>
 	)
 }
 
 const Home = () => {
+	const isLoggedIn=useSelector((state) => state.auth.isLoggedIn)
+	const user = useSelector((state) => state.auth.user) 
 	return (
     <SafeAreaView style={[styles.container, SafeAreaViewAndroid.AndroidSafeArea]}>
 		<ScrollView showsVerticalScrollIndicator = {false}>
@@ -47,11 +51,18 @@ const Home = () => {
 				<Carousel/>
 
 				{/* Order button */}
-				<View style = {styles.textContainer}>
-					<Text style = {styles.textStyle}>
-					The Pizza Company Xin Chào
-					</Text>
-				</View>
+				{isLoggedIn ? (
+					<View style = {styles.textContainer}>
+						<Text style = {styles.textStyle}>
+							The Pizza Company Xin Chào {user.first_name} {user.name} !
+						</Text>
+					</View>
+					) : (
+					<View style = {styles.textContainer}>
+						<Text style = {styles.textStyle}>
+						The Pizza Company Xin Chào
+						</Text>
+					</View>)}
 				<View style = {[styles.orderContainer, styles.Button ]}>
 					<Text style = {{marginTop : 20, fontSize : 15, color : "gray"}}>The Pizza Company sẽ giao sản phẩm đến địa chỉ của bạn</Text>
 					<TouchableOpacity style = {styles.orderBtn}>
@@ -107,7 +118,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	textStyle:{
-		fontSize: 20, 
+		fontSize: 18, 
 		fontWeight: 'bold', 
 		color: '#3c8d61', 
 		textAlign: 'center', 
@@ -116,7 +127,6 @@ const styles = StyleSheet.create({
 	textContainer:{
 		height : 50, 
 		width : screenWidth, 
-		marginHorizontal: 12, 
 		justifyContent : 'center', 
 		flexDirection : 'row',
 	},

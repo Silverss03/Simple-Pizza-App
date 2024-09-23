@@ -1,12 +1,37 @@
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Button} from 'react-native';
-import { ArrowLeft } from 'lucide-react-native';
+import { ArrowLeft, EyeOff, Eye } from 'lucide-react-native';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/authSlice';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid';
-import { EyeOff } from 'lucide-react-native';
-import { Eye } from 'lucide-react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const Login = ({route, navigation}) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const [phoneNum, setphoneNum] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+
+    const dispatch = useDispatch(); 
+
+    const handleLogin = async () => {
+        try {
+            const response = await axios.post('login', { phoneNum, password });
+            const token = response.data.token;
+            const user = response.data.user;
+            await AsyncStorage.setItem('token', token); // Save token/
+
+            setMessage('Login successful');
+            // Navigate to another screen upon success  
+            dispatch(login(user));
+            navigation.navigate('Trang Chủ');
+        } catch (error) {
+            setMessage(error.response.data.error);
+        }
+    };
+
     return (
         <SafeAreaView style = {SafeAreaViewAndroid.AndroidSafeArea}>
             <View style = {styles.header}>
@@ -17,10 +42,10 @@ const Login = ({route, navigation}) => {
             </View>
             <View style = {styles.login}>
                 <Text style = {styles.textLabel}>Số điện thoại</Text>
-                <TextInput style = {styles.textInput} placeholder='Nhập Số Điện Thoại Của Bạn'></TextInput>
+                <TextInput style = {styles.textInput} onChangeText={setphoneNum} placeholder='Nhập Số Điện Thoại Của Bạn'></TextInput >
                 <Text style = {styles.textLabel}>Mật khẩu</Text>
                 <View style = {{flexDirection : 'row', alignItems : 'center'}}>
-                   <TextInput style = {styles.textInput} placeholder='Nhập Mật Khẩu Của Bạn' secureTextEntry={!passwordVisible}></TextInput>
+                   <TextInput style = {styles.textInput} onChangeText={setPassword} placeholder='Nhập Mật Khẩu Của Bạn' secureTextEntry={!passwordVisible}></TextInput>
                     <TouchableOpacity style = {{marginLeft : 10}}>
                         {passwordVisible ? <Eye size = {30} color = "black" onPress = {() => setPasswordVisible(false)}/> : <EyeOff size = {30} color = "black" onPress = {() => setPasswordVisible(true)}/>}
                     </TouchableOpacity>
@@ -31,7 +56,7 @@ const Login = ({route, navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Button title = "Đăng Nhập" color = "green"></Button>
+                    <Button onPress={handleLogin} title = "Đăng Nhập" color = "green"></Button>
                 </View>
             </View>
         </SafeAreaView>

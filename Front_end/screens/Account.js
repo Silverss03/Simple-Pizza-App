@@ -3,9 +3,13 @@ import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
 import {PhoneCall} from 'lucide-react-native'
 import { Globe } from 'lucide-react-native';
 import { Smartphone } from 'lucide-react-native';
+import { useState } from 'react';
 
 const Account = ({route, navigation}) => {
+    const { user, isLoggedIn } = route.params || {}; 
+	console.log(user);
     return (
+        
         <SafeAreaView style = {SafeAreaViewAndroid.AndroidSafeArea}>
             <View style = {styles.container}>
                 <ScrollView stickyHeaderIndices={[0]}>
@@ -20,10 +24,10 @@ const Account = ({route, navigation}) => {
                             </View>
                         </ImageBackground>
                         <View style = {styles.buttonContainer}> 
-                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Login')}>
+                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Đăng nhập')}>
                                 <Text style={styles.buttonText}>Đăng Nhập</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
+                            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Đăng ký')}>
                                 <Text style={styles.buttonText}>Đăng Ký</Text>
                             </TouchableOpacity>
                         </View>

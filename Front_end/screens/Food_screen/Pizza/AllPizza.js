@@ -35,9 +35,8 @@ const AllPizza = () =>{
             } catch (error) {
               console.error('Error fetching data:', error);
             }
-          };
-      
-          fetchData();
+        };
+        fetchData();
     }, []);
     return(
         <Food foodItems={items} generateKey={generateKey}/>

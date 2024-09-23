@@ -10,7 +10,10 @@ const Tab = createMaterialTopTabNavigator();
 
 function MenuTabs() {
   return (
-    <Tab.Navigator >
+    <Tab.Navigator       
+      screenOptions={{
+        tabBarLabelStyle: { fontSize: 12 }, // Customize the font size here
+      }}>
       <Tab.Screen name = "Pizza" component={Pizza}/>
       <Tab.Screen name = "Mỳ ý" component={Spaghetti}/>
       <Tab.Screen name = "Khai vị" component={Appetizer}/>

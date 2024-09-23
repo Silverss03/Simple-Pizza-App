@@ -6,15 +6,12 @@ import Cart from '../screens/Cart';
 import Account from '../screens/Account';
 import Login from '../screens/Login'
 import Register from '../screens/Register'
-import { House } from 'lucide-react-native';
-import { Pizza } from 'lucide-react-native';
-import { TicketPercent } from 'lucide-react-native';
-import { ShoppingCart } from 'lucide-react-native';
-import { CircleUser } from 'lucide-react-native';
+import { House, Pizza, TicketPercent, ShoppingCart, CircleUser } from 'lucide-react-native';
+import { AuthContext } from '../components/AuthContext';
 
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
-  return (
+    return (
 	<Tab.Navigator screenOptions={{headerShown : false}}>
 		<Tab.Screen 
 			name = "Trang Chủ" 
