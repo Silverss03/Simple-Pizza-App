@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -25,17 +24,17 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     const { phoneNum, password } = req.body;
     try {
-        const [rows] = await db.query('SELECT * FROM users WHERE phoneNum = ?', [phoneNum]);
-        const user = rows[0];
-        if (!user) return res.status(404).json({ error: 'User not found' });
-
-        // Compare the password
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
-        // Generate a JWT token
-        const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-        console.log(user);
-        res.json({ message: 'Login successful', token , user });
+      const [rows] = await db.query('SELECT * FROM users WHERE phoneNum = ?', [phoneNum]);
+      const user = rows[0];
+      if (!user) return res.status(404).json({ error: 'User not found' });
+      
+      // Compare the password
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
+      // Generate a JWT token
+      const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
+      console.log(user);
+      res.json({ message: 'Login successful', token , user });
     } catch (error) {
         res.status(500).json({ error: 'Login failed', details: error });
     }
