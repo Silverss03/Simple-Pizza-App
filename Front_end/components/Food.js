@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 const Food = ({foodItems, generateKey}) =>{
     const renderItem = ({item}) => {
-        const imageUrl = `http://172.20.10.6:3000${item.img}`;
+        const imageUrl = `http://192.168.1.6:3000${item.img}`;
         return (
             <TouchableOpacity>
                 <View style={{flexDirection: 'row', textAlign: 'left', fontSize: 15, backgroundColor: 'white', width: '100%', marginBottom : 16}}>

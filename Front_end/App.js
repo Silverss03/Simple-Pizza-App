@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store/store' ;
 
 // axios.defaults.baseURL = 'http://10.0.2.2:3000/api' ;
-axios.defaults.baseURL = 'http://172.16.10.49:3000/api';
+axios.defaults.baseURL = 'http://192.168.1.6:3000/api';
 
 export default function App() {
 	return (

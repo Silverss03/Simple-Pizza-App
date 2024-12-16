@@ -1,8 +1,9 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, Dimensions, TouchableOpacity, Image, FlatList } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity, Image, FlatList } from 'react-native';
 import React from 'react';
 import Carousel from '../components/Carousel';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
 import { useSelector } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get('window').width ;
 // Home page images
@@ -39,7 +40,7 @@ const renderItem = ({item}) => {
 	)
 }
 
-const Home = () => {
+const Home = ({navigation}) => {
 	const isLoggedIn=useSelector((state) => state.auth.isLoggedIn)
 	const user = useSelector((state) => state.auth.user) 
 	return (
@@ -64,12 +65,12 @@ const Home = () => {
 						</Text>
 					</View>)}
 				<View style = {[styles.orderContainer, styles.Button ]}>
-					<Text style = {{marginTop : 20, fontSize : 15, color : "gray"}}>The Pizza Company sẽ giao sản phẩm đến địa chỉ của bạn</Text>
-					<TouchableOpacity style = {styles.orderBtn}>
+					<Text style = {{marginTop : 20, fontSize : 15, color : "gray", marginHorizontal : 20}}>The Pizza Company sẽ giao sản phẩm đến địa chỉ của bạn</Text>
+					<TouchableOpacity style = {styles.orderBtn} onPress={() => navigation.navigate('Thực Đơn')}>
 						<Text style = {{color : "white"}}>ĐẶT HÀNG NGAY</Text>
 					</TouchableOpacity>
 				</View>
-				<TouchableOpacity style = {[styles.orderAgainBtn, styles.Button]}>
+				<TouchableOpacity style = {[styles.orderAgainBtn, styles.Button]} >
 						<Text style = {{color : "#3c8d61", fontSize : 16 }}>
 							Đặt lại đơn hàng gần nhất
 						</Text>
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 	},
 	textStyle:{
-		fontSize: 18, 
+		fontSize: 16, 
 		fontWeight: 'bold', 
 		color: '#3c8d61', 
 		textAlign: 'center', 
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
 		marginHorizontal : screenWidth * 0.05,
 		alignItems : 'center',
 		justifyContent : 'center',
-}
+	}
 });
 
 export default Home;

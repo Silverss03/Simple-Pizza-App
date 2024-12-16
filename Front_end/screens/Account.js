@@ -1,13 +1,15 @@
-import {View, Text, SafeAreaView, ImageBackground, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ImageBackground, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
 import {PhoneCall} from 'lucide-react-native'
 import { Globe } from 'lucide-react-native';
 import { Smartphone } from 'lucide-react-native';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Account = ({route, navigation}) => {
-    const { user, isLoggedIn } = route.params || {}; 
-	console.log(user);
+    const isLoggedIn=useSelector((state) => state.auth.isLoggedIn)
+	const user = useSelector((state) => state.auth.user) 
     return (
         
         <SafeAreaView style = {SafeAreaViewAndroid.AndroidSafeArea}>
@@ -23,6 +25,11 @@ const Account = ({route, navigation}) => {
                                 </Image>
                             </View>
                         </ImageBackground>
+                        {isLoggedIn ? (
+                            <View style = {{flex: 1, flexDirection : 'column-reverse', alignItems : 'center'}}>
+                                <Text style = {{fontSize : 20, fontWeight : 'bold'}}>{user.first_name} {user.name}</Text>
+                            </View>
+                        ) : (
                         <View style = {styles.buttonContainer}> 
                             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Đăng nhập')}>
                                 <Text style={styles.buttonText}>Đăng Nhập</Text>
@@ -31,6 +38,7 @@ const Account = ({route, navigation}) => {
                                 <Text style={styles.buttonText}>Đăng Ký</Text>
                             </TouchableOpacity>
                         </View>
+                        )}
                     </View>
                     <View style={styles.infoContainer}>
                         <Text style={styles.headerText}>Thông tin chung</Text>
@@ -38,6 +46,20 @@ const Account = ({route, navigation}) => {
                         <Text style={styles.infoText}>Tin tức</Text>
                         <Text style={styles.infoText}>Chính sách</Text>
                     </View >
+                    {isLoggedIn && (                
+                        <View>
+                            <View style={{backgroundColor : 'white', marginTop : 10, padding : 5}}>
+                                <TouchableOpacity>
+                                    <Text style={[styles.infoText, { color: 'green' }]}> Đổi mật khẩu</Text>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{backgroundColor : 'white', marginTop : 10, padding : 5}}>
+                                <TouchableOpacity>
+                                    <Text style={[styles.infoText, { color: 'green' }]}> Đăng xuất</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>    
+                    )}
                     <View style = {{flex:1,backgroundColor:'white',marginTop:10}}>
                         <View style = {styles.footerInfo}>
                             <Image source={require('../assets/icons/pizza_logo.png')}>

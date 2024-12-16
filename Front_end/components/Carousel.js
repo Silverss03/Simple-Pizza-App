@@ -125,7 +125,7 @@ export default Carousel;
 
 const styles = StyleSheet.create({
     container:{
-        height : 250, 
+        height : 200, 
     },
     Carousel_img:{
         height : 170, 
