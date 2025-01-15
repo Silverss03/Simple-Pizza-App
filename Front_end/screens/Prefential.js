@@ -1,23 +1,7 @@
 import {View, Text, SafeAreaView, FlatList, Image, TouchableOpacity} from 'react-native';
 import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid';
 import { StyleSheet } from 'react-native';
-const items = [
-    {
-        id : 1,
-        img : require('../assets/Prefential_img/1.jpg'),
-        name : "SÒ ĐIỆP TO VĨBE",
-    },
-    {
-        id : 2,
-        img : require('../assets/Prefential_img/2.jpg'),
-        name : "MUA 1 TẶNG 1 VÀO THỨ 3 THỨ 4",
-    },
-    {
-        id : 3,
-        img : require('../assets/Prefential_img/3.jpg'),
-        name : "TIẾT KIỆM 50% CHO PIZZA THỨ 2"
-    }
-]
+import { Prefrential_items } from '../constants/constants';
 
 const renderItem = ({item}) =>{
     return (
@@ -27,8 +11,8 @@ const renderItem = ({item}) =>{
                         source = {item.img} 
                         style = {{height : 210, 
                                 width : 200, 
-                                marginBottom : 4}}></Image>
-                
+                                marginBottom : 4}}>
+                </Image>
                 <Text>{item.name}</Text>
             </TouchableOpacity>
         </View>
@@ -39,7 +23,7 @@ const Prefentials = () => {
     return (
         <SafeAreaView style = {SafeAreaViewAndroid.AndroidSafeArea}>
             <FlatList
-                data = {items}
+                data = {Prefrential_items}
                 keyExtractor={(item) => item.id}
                 renderItem={renderItem}
                 contentContainerStyle = {{justifyContent : 'center', alignItems : 'center'}}

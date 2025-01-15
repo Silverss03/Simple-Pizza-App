@@ -6,6 +6,7 @@ import Cart from '../screens/Cart';
 import Account from '../screens/Account';
 import Login from '../screens/Login'
 import Register from '../screens/Register'
+import FoodDetail from '../screens/FoodDetail';
 import { House, Pizza, TicketPercent, ShoppingCart, CircleUser } from 'lucide-react-native';
 import { AuthContext } from '../components/AuthContext';
 
@@ -55,6 +56,7 @@ const Tabs = () => {
 			}}  />
 		<Tab.Screen name = "Đăng nhập" component={Login} options={{ tabBarButton: () => null }}/>
 		<Tab.Screen name = "Đăng ký" component={Register} options={{ tabBarButton: () => null }}/>
+		<Tab.Screen name = "Chi tiết" component={FoodDetail} options={{ tabBarButton: () => null }}/>
 	</Tab.Navigator>
 	);
 }
