@@ -21,7 +21,7 @@ const TraditionPizza = () =>{
     }, []);
 
     return(
-        <Food foodItems={items} generateKey={(item) => item.id}/>
+        <Food foodItems={items} generateKey={(item) => item.item_id}/>
     )
 }
 

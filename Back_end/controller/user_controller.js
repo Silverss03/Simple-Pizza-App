@@ -27,7 +27,6 @@ router.post('/login', async (req, res) => {
       const [rows] = await db.query('SELECT * FROM users WHERE phoneNum = ?', [phoneNum]);
       const user = rows[0];
       if (!user) return res.status(404).json({ error: 'User not found' });
-      
       // Compare the password
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
@@ -40,18 +39,19 @@ router.post('/login', async (req, res) => {
     }
 });
 
-
-
 // Dynamic route for food categories and subcategories
 router.get('/food/:foodType', async (req, res) => {
   const { foodType } = req.params;
-  let query = 'SELECT * FROM ' + foodType;
+
+  // Use parameterized query to prevent SQL injection
+  let query = 'SELECT * FROM item JOIN category ON item.category_id = category.category_id WHERE category.name = ?';
   const params = [foodType];
+
   try {
-    const [rows] = await db.query(query, params);
+    const [rows] = await db.query(query, params); // Corrected query execution
     res.json(rows);
   } catch (err) {
-    
+    console.error('Database Error:', err.message); // Log the actual error
     res.status(500).json({ error: err.message });
   }
 });

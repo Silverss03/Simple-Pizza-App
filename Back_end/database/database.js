@@ -6,7 +6,7 @@ const connection = mysql.createPool({
     port: '3308',
     user: 'root',
     password: '0915166497Bc#',
-    database : 'pizza_order',
+    database : 'pizzashop',
     waitForConnections: true,
     connectionLimit: 100,
     queueLimit : 0
