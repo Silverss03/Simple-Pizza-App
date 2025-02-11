@@ -88,9 +88,6 @@ Make sure you have the following installed:
 ## 📌 Contribution
 Feel free to contribute! Fork the repo, create a feature branch, and submit a pull request.
 
-## 📜 License
-This project is licensed under the MIT License.
-
 ---
 ### 📧 Contact
 For inquiries, reach out to nguyenhuumanhhp2003@gmail.com.
