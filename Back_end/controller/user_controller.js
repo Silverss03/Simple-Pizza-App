@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const db = require('../database/database');
 const secretKey = process.env.SECRET_KEY; 
+const getCartOrCreate =  require('../utils/helperFunction')
 
 // Register a new user
 router.post('/register', async (req, res) => {
@@ -12,7 +13,7 @@ router.post('/register', async (req, res) => {
   try {
       // Hash the password
       const hashedPassword = await bcrypt.hash(password, 10);
-      const query = 'INSERT INTO users (phoneNum, first_name, name, email, password) VALUES (?, ?, ?, ?, ?)';
+      const query = 'INSERT INTO users (phonenum, first_name, name, email, password) VALUES (?, ?, ?, ?, ?)';
       const [result] = await db.query(query, [phoneNum, firstName, name, email, hashedPassword]);
       res.json({ message: 'User registered successfully', userId: result.insertId });
   } catch (error) {
@@ -32,7 +33,6 @@ router.post('/login', async (req, res) => {
       if (!isMatch) return res.status(401).json({ error: 'Invalid credentials' });
       // Generate a JWT token
       const token = jwt.sign({ userId: user.id }, secretKey, { expiresIn: '1h' });
-      console.log(user);
       res.json({ message: 'Login successful', token , user });
     } catch (error) {
         res.status(500).json({ error: 'Login failed', details: error });
@@ -44,16 +44,32 @@ router.get('/food/:foodType', async (req, res) => {
   const { foodType } = req.params;
 
   // Use parameterized query to prevent SQL injection
-  let query = 'SELECT * FROM item JOIN category ON item.category_id = category.category_id WHERE category.name = ?';
+  let query = 'SELECT item.* FROM item JOIN category ON item.category_id = category.category_id WHERE category.name = ?';
   const params = [foodType];
 
   try {
-    const [rows] = await db.query(query, params); // Corrected query execution
+    const [rows] = await db.query(query, params); 
     res.json(rows);
   } catch (err) {
-    console.error('Database Error:', err.message); // Log the actual error
+    console.error('Database Error:', err.message); 
     res.status(500).json({ error: err.message });
   }
 });
+
+router.post('/addToCart', async (req, res) => {
+  const {user_id, item_id, quantity, des, price} = req.body;
+  console.log(user_id, item_id, quantity, des, price)
+  try {
+    const cart_id = await getCartOrCreate(user_id) ;
+    console.log(cart_id);
+    const query = 'INSERT INTO cart_item (cart_id, item_id , quantity, des, price) VALUES (?, ?, ?, ?, ?)';
+    const [result] = await db.query(query, [cart_id, item_id, quantity, des, price]);
+    res.json({message : 'Add to cart successfully', cart_id : result.insertId});
+  }
+  catch (error) {
+    res.status(500).json({ error: 'Add to cart failed', details: error });
+  }
+
+})
 
 module.exports = router;
