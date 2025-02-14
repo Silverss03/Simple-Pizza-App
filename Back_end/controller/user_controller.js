@@ -72,4 +72,19 @@ router.post('/addToCart', async (req, res) => {
 
 })
 
+router.get('/getCartNum/:user_id', async(req, res) => {
+  const {user_id} = req.params ;
+  console.log(user_id);
+  try{
+    const cart_id = await getCartOrCreate(user_id) ;
+    console.log(cart_id);
+    const query = 'SELECT COUNT(*) as cartNum FROM cart_item WHERE cart_id = ?' ;
+    const [result] = await db.query(query, [cart_id]) ;
+    res.json({cartNum : result[0].cartNum}) ;
+  }
+  catch(error){
+    res.status(500).json({error : 'Get cart number failed', details : error}) ;
+  }
+})
+
 module.exports = router;
