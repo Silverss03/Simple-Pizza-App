@@ -1,7 +1,6 @@
-import {View, Text, FlatList, Image, SafeAreaView, TouchableOpacity, Dimensions} from 'react-native'
 import axios from 'axios' 
 import React, { useEffect, useState } from 'react';
-import Food from '../../components/Food'
+import Food from '../../components/Menu/Food'
 
 const Salad = () =>{
     const [items, setItems] = useState([]);

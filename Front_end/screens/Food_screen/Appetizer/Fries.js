@@ -1,7 +1,6 @@
-import {View, Text, FlatList, Image, SafeAreaView, TouchableOpacity, Dimensions} from 'react-native'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Food from '../../../components/Food';
+import Food from '../../../components/Menu/Food';
 
 const Fries = () =>{
     const [items, setItems] = useState([]);

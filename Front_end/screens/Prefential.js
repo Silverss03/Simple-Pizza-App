@@ -1,5 +1,5 @@
 import {View, Text, SafeAreaView, FlatList, Image, TouchableOpacity} from 'react-native';
-import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid';
+import SafeAreaViewAndroid from '../components/Common/SafeAreaViewAndroid';
 import { StyleSheet } from 'react-native';
 import { Prefrential_items } from '../constants/constants';
 

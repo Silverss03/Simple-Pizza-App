@@ -1,13 +1,12 @@
 import {View, Text, ImageBackground, StyleSheet, Image, ScrollView, TouchableOpacity} from 'react-native';
-import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
+import SafeAreaViewAndroid from '../components/Common/SafeAreaViewAndroid.js';
 import {PhoneCall} from 'lucide-react-native'
 import { Globe } from 'lucide-react-native';
 import { Smartphone } from 'lucide-react-native';
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const Account = ({route, navigation}) => {
+const Account = ({ navigation}) => {
     const isLoggedIn=useSelector((state) => state.auth.isLoggedIn)
 	const user = useSelector((state) => state.auth.user) 
     return (
@@ -67,7 +66,7 @@ const Account = ({route, navigation}) => {
                         </View>
                         <View style = {styles.footerInfo}>
                             <Text style = {{fontSize: 16}}>
-                                Công ty Cổ phần Pizza Ngon  77 Trần Nhân Tôn, Phường 9, Quận 5, Thành phố Hồ Chí Minh 
+                                Công ty Cổ phần Pizza Ngon 77 Trần Nhân Tôn, Phường 9, Quận 5, Thành phố Hồ Chí Minh 
                             </Text>
                         </View>
                         <View style = {styles.footerInfo}>

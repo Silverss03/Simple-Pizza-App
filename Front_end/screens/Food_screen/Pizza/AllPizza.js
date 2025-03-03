@@ -1,20 +1,13 @@
-import {View, Text, FlatList, Image, SafeAreaView, TouchableOpacity, Dimensions} from 'react-native'
 import axios from 'axios' 
 import React, { useEffect, useState } from 'react';
-const screenWidth = Dimensions.get('window').width ;
-import Food from '../../../components/Food'
+import Food from '../../../components/Menu/Food'
+import generateKey from '../../../utils/generateKey';
 
 const AllPizza = () =>{
     const [items, setItems] = useState([]);
-    let keyCounter = 1;
 
     const addItem = (item) => {
         setItems((prevItems) => [...prevItems, item]);
-    };
-
-    const generateKey = () => {
-        keyCounter += 1;
-        return keyCounter.toString();
     };
 
     useEffect(() => {

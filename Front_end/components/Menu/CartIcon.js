@@ -1,33 +1,15 @@
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { View, Text, TouchableOpacity, StyleSheet} from "react-native"
 import { ShoppingCart } from "lucide-react-native"
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useSelector } from "react-redux"
+import { useFocusEffect } from "@react-navigation/native";
+
 
 const CartIcon = () => {
     const navigation = useNavigation();
     const user = useSelector((state) => state.auth.user);
-
-    useEffect(() => {
-        getCartNum();
-    }, []) 
-
-    useEffect(() => {
-        if(user){
-            getCartNum() 
-        }
-        else{
-            setCartNum(0)
-        }
-    }, [user])
-
-    useEffect(() => {
-        const unsubscribe = navigation.addListener('focus', () => {
-            getCartNum() ;
-        })
-        return unsubscribe
-    }, [navigation])
 
     const getCartNum = async () => {
         try{
@@ -41,6 +23,14 @@ const CartIcon = () => {
             console.log(error)
         }
     }
+
+    useFocusEffect(
+        useCallback(
+            () => {
+                getCartNum() ;
+            }
+        )
+    )
     const [cartNum, setCartNum] = useState(0);
     return(
         <TouchableOpacity style = {styles.cartContainer} onPress={() => navigation.navigate('Chi tiết giỏ hàng')}>

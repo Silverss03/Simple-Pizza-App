@@ -1,23 +1,22 @@
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, SafeAreaView, Button} from 'react-native';
 import { useState } from 'react';
-import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid';
+import SafeAreaViewAndroid from '../components/Common/SafeAreaViewAndroid';
 import { EyeOff, Eye, Asterisk, ArrowLeft } from 'lucide-react-native';
-import KeyboardAvoidWrapper from '../components/KeyboardAvoidWrapper';
+import KeyboardAvoidWrapper from '../components/Common/KeyboardAvoidWrapper';
 import axios from 'axios';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
 const Register = ({route, navigation}) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const [message, setMessage] = useState('');
 
     const handleSubmit = async (values) => {
         try {
             console.log(values)
             const response = await axios.post('register', values);
-            setMessage(response.data.message);
+            navigation.navigate('Trang Chủ');
         } catch (error) {
-            setMessage(error.response.data.error);
+            console.log(error.response.data.error);
         }
     };
 

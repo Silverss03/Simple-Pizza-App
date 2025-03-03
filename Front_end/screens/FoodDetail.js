@@ -1,12 +1,15 @@
-import React from "react";
+import axios from 'axios';
 import {View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, FlatList} from 'react-native';
-import SafeAreaViewAndroid from "../components/SafeAreaViewAndroid";
-import { useState, useEffect } from "react";
+import SafeAreaViewAndroid from "../components/Common/SafeAreaViewAndroid";
+import { useState, useEffect, React } from "react";
 import formatPrice from "../utils/formatPrice";
 import { Foodoptions } from "../constants/constants";
 import { ArrowLeft, SquareMinus, SquarePlus} from 'lucide-react-native';
+import { useSelector } from 'react-redux';
+import SizeOption from "../components/Menu/SizeOption";
 
 const FoodDetail = ({route, navigation}) => {
+    const user = useSelector((state) => state.auth.user);
     const {item}  = route.params ; 
     const imageUrl = `http://192.168.0.101:3000${item.img}`;
     const [amount, setAmount] = useState(1) ;
@@ -41,13 +44,35 @@ const FoodDetail = ({route, navigation}) => {
     }
 
     const totalPrice = () => selectedOption.price * amount + getBasePrice() ;
-
-    const handleSizeChange = (size, price) => {
-        setSelectedOption((prev) => ({...prev, size, price, baseId : 1})) ;
-    }
     
+    const handleSizeChange = (size, extraPrice) => {
+        setSelectedOption({
+            size, 
+            baseId: 1,
+            price: item.price + extraPrice 
+        });
+    };
+
     const handleBaseChanges = (baseId) => {
         setSelectedOption((prev) => ({...prev, baseId})) ;
+    }
+
+    const handleClick = async (item_id) => {
+        try{
+            // Inside your component
+            const userId = user ? user.user_id : null;
+            if(userId === null){
+                navigation.navigate('Đăng nhập')
+            }
+            else{
+                const response = await axios.post('addToCart', {user_id : userId, item_id : item_id, quantity : amount, des : `${selectedOption.size} inch, đế bánh ${Foodoptions.find(option => option.id === selectedOption.baseId).option}`, price : totalPrice() })
+                console.log(response.data);
+                navigation.navigate('Thực Đơn')
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
     }
 
     const renderItem = ({item}) => {
@@ -60,9 +85,10 @@ const FoodDetail = ({route, navigation}) => {
             >
                 <Text style = {styles.sizeBoxText}>{item.option}</Text>
                 {item.price[selectedOption.size] > 0 && (
-                    <Text style = {styles.sizeBoxText}>+{formatPrice(item?.price[selectedOption.size])}đ</Text>
+                    <Text style = {styles.sizeBoxText}>
+                        +{formatPrice(item?.price[selectedOption.size])}đ
+                    </Text>
                 )}
-                
             </TouchableOpacity>
         )
     }
@@ -88,27 +114,14 @@ const FoodDetail = ({route, navigation}) => {
                     <Text style = {styles.sizeOptionTitle}>Chọn Cỡ Bánh</Text>
 
                     <View style = {styles.foodOption}>
-
-                        <TouchableOpacity 
-                            style = {[styles.sizeBox, selectedOption.size === 6 && {borderColor : "#3c8d61"}]} 
-                            onPress = {() => handleSizeChange(6, item.price)}>
-                            <Text style = {styles.sizeBoxText}>Cỡ nhỏ 6 inch</Text>
-                            <Text style = {styles.sizeBoxText}></Text>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity 
-                            style = {[styles.sizeBox, selectedOption.size === 9 && {borderColor : "#3c8d61"}]} 
-                            onPress = {() => handleSizeChange(9, item.price + 80000)}>
-                            <Text style = {styles.sizeBoxText}>Cỡ vừa 9 inch</Text>
-                            <Text style = {styles.sizeBoxText}>+{formatPrice(80000)}đ</Text>
-                        </TouchableOpacity>
-                        
-                        <TouchableOpacity 
-                            style = {[styles.sizeBox, selectedOption.size === 12 && {borderColor : "#3c8d61"}]} 
-                            onPress = {() => handleSizeChange(12, item.price + 190000)}>
-                            <Text style = {styles.sizeBoxText}>Cỡ lớn 12 inch</Text>
-                            <Text style = {styles.sizeBoxText}>+{formatPrice(190000)}đ</Text>
-                        </TouchableOpacity>
+                        {[6, 9, 12].map(size => (
+                            <SizeOption
+                                size={size}
+                                selectedSize={selectedOption.size}
+                                onSizeChange={handleSizeChange}
+                                price={(size === 9 ? 80000 : size === 12 ? 190000 : 0)}
+                            />
+                        ))}
                     </View>
 
                     <Text style = {styles.sizeOptionTitle}>Chọn Đế Bánh</Text>
@@ -143,7 +156,7 @@ const FoodDetail = ({route, navigation}) => {
                             <Text style = {styles.priceText}>{formatPrice(totalPrice())}đ</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style = {styles.addToCartButton}>
+                    <TouchableOpacity style = {styles.addToCartButton} onPress={() => handleClick(item.item_id)}>
                         <Text style = {styles.addToCartText}>Thêm Vào Giỏ Hàng</Text>
                     </TouchableOpacity>
                 </View>
@@ -187,17 +200,6 @@ const styles = StyleSheet.create({
         padding : 10,
         color : '#3c8d61', 
     },
-    sizeBox : {
-        borderWidth : 1,
-        borderColor : '#d1d1d1',
-        minWidth : 120,
-        alignItems : 'center',
-        padding : 8,
-        marginBottom : 8,
-    },
-    sizeBoxText : {
-        fontSize : 16,
-    },   
     bottomContainer : {
         position : 'absolute',
         bottom : 0,
@@ -238,7 +240,15 @@ const styles = StyleSheet.create({
         color : "red", 
         fontSize : 16, 
         fontWeight : "bold"
-    }
+    },    
+    sizeBox : {
+        borderWidth : 1,
+        borderColor : '#d1d1d1',
+        minWidth : 120,
+        alignItems : 'center',
+        padding : 8,
+        marginBottom : 8,
+    },
 })
 
 export default FoodDetail; 

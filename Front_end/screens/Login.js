@@ -3,7 +3,7 @@ import { ArrowLeft, EyeOff, Eye } from 'lucide-react-native';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../store/authSlice';
-import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid';
+import SafeAreaViewAndroid from '../components/Common/SafeAreaViewAndroid';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -12,7 +12,6 @@ const Login = ({route, navigation}) => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [phoneNum, setphoneNum] = useState('');
     const [password, setPassword] = useState('');
-    const [message, setMessage] = useState('');
 
     const dispatch = useDispatch(); 
 
@@ -22,13 +21,11 @@ const Login = ({route, navigation}) => {
             const token = response.data.token;
             const user = response.data.user;
             await AsyncStorage.setItem('token', token); // Save token/
-
-            setMessage('Login successful');
             // Navigate to another screen upon success  
             dispatch(login(user));
             navigation.navigate('Trang Chủ');
         } catch (error) {
-            setMessage(error.response.data.error);
+            console.log(error.response.data.error);
         }
     };
 

@@ -7,8 +7,9 @@ import Account from '../screens/Account';
 import Login from '../screens/Login'
 import Register from '../screens/Register'
 import FoodDetail from '../screens/FoodDetail';
+import CartDetail from '../screens/CartDetail';
+
 import { House, Pizza, TicketPercent, ShoppingCart, CircleUser } from 'lucide-react-native';
-import { AuthContext } from '../components/AuthContext';
 
 const Tab = createBottomTabNavigator();
 const Tabs = () => {
@@ -22,6 +23,7 @@ const Tabs = () => {
 				<House color={color} size={size}/>
 			),
 			}}  />
+
 		<Tab.Screen 
 			name = "Thực Đơn" 
 			component={Menu}
@@ -30,6 +32,7 @@ const Tabs = () => {
 					<Pizza color={color} size={size}/>
 			),
 			}}  />
+
 		<Tab.Screen 
 			name = "Khuyến Mãi" 
 			component={Prefentials} 
@@ -38,6 +41,7 @@ const Tabs = () => {
 					<TicketPercent color={color} size={size}/>
 			),
 			}}  />
+
 		<Tab.Screen 
 			name = "Đơn Hàng" 
 			component={Cart} 
@@ -46,6 +50,7 @@ const Tabs = () => {
 					<ShoppingCart color={color} size={size}/>
 			),
 			}} />
+
 		<Tab.Screen 
 			name = "Tài Khoản" 
 			component={Account}
@@ -54,9 +59,30 @@ const Tabs = () => {
 					<CircleUser color={color} size={size}/>
 			),
 			}}  />
-		<Tab.Screen name = "Đăng nhập" component={Login} options={{ tabBarButton: () => null }}/>
-		<Tab.Screen name = "Đăng ký" component={Register} options={{ tabBarButton: () => null }}/>
-		<Tab.Screen name = "Chi tiết" component={FoodDetail} options={{ tabBarButton: () => null }}/>
+
+		<Tab.Screen 
+			name = "Đăng nhập" 
+			component={Login} 
+			options={{ tabBarButton: () => null }}
+			/>
+
+		<Tab.Screen 
+			name = "Đăng ký" 
+			component={Register} 
+			options={{ tabBarButton: () => null }}
+			/>
+
+		<Tab.Screen 
+			name = "Chi tiết" 
+			component={FoodDetail} 
+			options={{ tabBarButton: () => null }}
+			/>
+
+		<Tab.Screen 
+			name = "Chi tiết giỏ hàng" 
+			component={CartDetail} 
+			options={{ tabBarButton: () => null }}
+			/>
 	</Tab.Navigator>
 	);
 }

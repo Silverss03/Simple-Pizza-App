@@ -2,7 +2,7 @@ import {View, Text, FlatList, Image, SafeAreaView, TouchableOpacity, Dimensions}
 const screenWidth = Dimensions.get('window').width ;
 import axios from 'axios' 
 import React, { useEffect, useState } from 'react';
-import Food from '../../../components/Food'
+import Food from '../../../components/Menu/Food'
 
 const SpecialPizza = () =>{
     const [items, setItems] = useState([]);

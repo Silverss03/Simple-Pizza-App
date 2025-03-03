@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity, Image, FlatList } from 'react-native';
 import React from 'react';
-import Carousel from '../components/Carousel';
-import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
+import Carousel from '../components/Home/Carousel.js';
+import SafeAreaViewAndroid from '../components/Common/SafeAreaViewAndroid.js';
 import { useSelector } from 'react-redux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 

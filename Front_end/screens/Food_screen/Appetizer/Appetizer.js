@@ -1,4 +1,4 @@
-import {SafeAreaView, Text, Platform, StatusBar} from 'react-native';    
+import {SafeAreaView} from 'react-native';    
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'; 
 import Chicken from './Chicken';
 import Bread from './Bread';

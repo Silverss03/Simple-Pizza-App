@@ -1,8 +1,6 @@
-import {View, Text, FlatList, Image, SafeAreaView, TouchableOpacity, Dimensions} from 'react-native'
 import axios from 'axios' 
 import { useState, useEffect } from 'react';
-const screenWidth = Dimensions.get('window').width ;
-import Food from '../../../components/Food'
+import Food from '../../../components/Menu/Food'
 
 const Bread = () =>{
     const [items, setItems] = useState([]);

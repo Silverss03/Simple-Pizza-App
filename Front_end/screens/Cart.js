@@ -1,8 +1,8 @@
-import {SafeAreaView, View, Text, StyleSheet, TextInput, Image, TouchableOpacity} from 'react-native';
-import SafeAreaViewAndroid from '../components/SafeAreaViewAndroid.js';
+import {SafeAreaView, View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import SafeAreaViewAndroid from '../components/Common/SafeAreaViewAndroid.js';
 import { Search } from 'lucide-react-native';
 
-const Cart = ({isLoggedIn}) => {
+const Cart = () => {
     return (
         <SafeAreaView style = {[styles.container, SafeAreaViewAndroid.AndroidSafeArea]}>
             <View style = {styles.header}>
